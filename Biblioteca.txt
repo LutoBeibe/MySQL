@@ -1,0 +1,97 @@
+create database biblioteca;
+use biblioteca;
+
+CREATE TABLE bibliotecario (
+telefone varchar(15),
+dataNascimento date,
+cpf varchar(15) unique not null,
+email varchar(100) unique not null,
+nome varchar(100) not null,
+rg varchar(15) unique not null,
+complemento varchar(20),
+bairro varchar(50),
+cidade varchar(50) not null,
+uf varchar(2) not null,
+cep varchar(15),
+num varchar(10),
+codFuncionario int PRIMARY KEY auto_increment
+);
+
+CREATE TABLE cliente (
+turma varchar(15),
+dataNascimento date,
+email varchar(50) unique,
+nome varchar(100),
+telefone varchar(15),
+telcel varchar(15),
+ra int PRIMARY KEY auto_increment
+);
+
+CREATE TABLE livro (
+codlivro int PRIMARY KEY auto_increment,
+titulo varchar(100),
+genero varchar(50),
+autor varchar(100),
+editora varchar(100)
+);
+
+CREATE TABLE emprestimo_devolucao (
+data_emprestimo date,
+data_devolucao date,
+codEmprestimo int PRIMARY KEY auto_increment,
+codlivro int,
+ra int,
+codFuncionario int,
+FOREIGN KEY(ra) REFERENCES cliente (ra),
+FOREIGN KEY(codFuncionario) REFERENCES bibliotecario (codFuncionario),
+FOREIGN KEY(codlivro) REFERENCES livro (codlivro)
+);
+
+INSERT INTO cliente (nome, turma, email, telefone, telcel, dataNascimento) VALUES
+('Samuel Ribeiro','2C','SamuelRibeiroSousa@armyspy.com','2550-6131','89342-4431','1937-02-24'), 
+('Manuela Stella Maitê Moreira','3C','guoqing5311@uorak.com','2550-2564','74836-4260','1999-02-12'),
+('Clara Luana Cecília','1A','coloman847@uorak.com','6514-4324','25386-0265','1992-03-26'),
+('Lorenzo Paulo Edson Moreira','2A','espiritusanto9572@uorak.com','2131-1564','68608-2362','1999-05-24'),
+('Kevin Filipe Vitor Campos','2C','yerko698@uorak.com','3174-1248','71504-3379','1981-08-06'),
+('Eduarda Luciana Márcia','3B','blau6872@uorak.com','6417-0154','14693-4573','1937-02-01'),
+('Kevin Carlos Eduardo Manuel Campos','1B','estanislau5771@uorak.com','2548-5184','44112-2138','1971-01-25'),
+('Isaac Tomás Duarte','2C','adilia9012@uorak.com','6474-3245','82306-8976','2000-06-13'),
+('Guilherme Arthur Renan Duarte','3C','ahren4291@uorak.com','8174-1324','45196-6935','1996-08-29'),
+('Vera Ester','1B','noumidia6877@uorak.com','9915-5712','63898-8834','2005-10-22'),
+('Elias Ruan Ricardo Oliveira','2C','oghogho5080@uorak.com','3321-3114','14064-4301','2004-11-05'),
+('Isis Caroline','3C','idara4084@uorak.com','6581-6624','56725-5838','1999-04-11'),
+('Marcos Raimundo Oliveira','1A','marline3328@uorak.com','2145-4567','69407-7837','2001-01-18'),
+('Ryan Lorenzo Pires','2C','tayeb1764@uorak.com','9741-3219','35950-2390','1994-12-10'),
+('Milena Andrea Sueli','3A','cheickna9857@uorak.com','7532-4561','87392-1694','1990-10-19');
+
+INSERT INTO bibliotecario (codFuncionario,telefone,dataNascimento,cpf,email,nome,rg,complemento,bairro,uf,cep,num) VALUES
+('1','7618-3276','1991-08-12','161.351.523-51','MariaRochaSouza@jourrapide.com','Maria Rocha Souza','38.301.585-6','Casa1','Jardim Valo Verde','Sp','06814-640','198'),
+('2','4656-9517','1990-10-21','766.395.068-23','GabrielleRochaBarros@jourrapide.com','Gabrielle Rocha Barros','26.967.978-9','Ap51','Parque Cruz Alta','Sp','76873-220','264'),
+('3','9742-4237','1994-06-10','351.179.616-41','LuanaBarrosRodrigues@armyspy.com','Luana Barros Rodrigues','13.950.601-9','Ap23','Conjunto Palmital (São Benedito)','Sp','25560-700','143');
+
+INSERT INTO livro (titulo, genero, autor, editora) VALUES
+('Dom Quixote','Romance','Miguel de Cervantes','Livraria José Olympio Editora'),
+('Guerra e Paz','Romance','Liev Tolstói','Cosac & Naify'),
+('O Processo','Romance','Franz Kafka','Companhia das Letras'),
+('Cem Anos de Solidão','Romance','Gabriel García Márquez','Record'),
+('Ulisses','Romance','James Joyce','Sylvia Beach'),
+('Em Busca do Tempo Perdido','Literatura moderna','Marcel Proust','Bernard Grasset'),
+('A Divina Comédia','Poesia','Marcel Proust','Paulus Editora'),
+('O Homem sem Qualidades','Romance','Robert Musil','Nova Fronteira');
+
+INSERT INTO emprestimo_devolucao (data_emprestimo, data_devolucao, ra, codFuncionario, codlivro) VALUES
+('2020-03-07','2020-04-19','1','1','1'),
+('2020-02-04','2020-02-19','2','2','2'),
+('2020-01-14','2020-01-21','3','3','3'),
+('2020-03-11','2020-03-12','4','2','4'),
+('2020-03-24','2020-03-29','5','3','5'),
+('2020-03-02','2020-04-02','6','1','6'),
+('2020-03-13','2020-03-24','7','2','7'),
+('2020-02-12','2020-02-14','8','1','8'),
+('2020-01-02','2020-01-12','9','3','9'),
+('2020-02-16','2020-02-24','10','3','10'),
+('2020-03-14','2020-03-20','11','1','11'),
+('2020-02-12','2020-02-14','12','1','12'),
+('2020-01-02','2020-01-12','13','3','13'),
+('2020-02-16','2020-02-24','14','3','14'),
+('2020-03-12','2020-04-01','15','2','14');
